@@ -25,7 +25,9 @@ really useful to know:
 - What C++ STL headers are low token count to include?
 - What C++ STL headers are high token count to include?
 
-![Graph of libstdc++-7](https://raw.githubusercontent.com/ned14/stl-header-heft/master/graphes/libstdc++-7.png)
+<center>
+![Graph of libstdc++-7](https://raw.githubusercontent.com/ned14/stl-header-heft/master/graphs/libstdc++-7.png)
+</center>
 
 ## Low token count C++ 17 libstdc++ headers
 
