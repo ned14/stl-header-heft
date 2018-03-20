@@ -23,97 +23,24 @@ milliseconds of difference can add up quickly. Therefore it would be
 really useful to know:
 
 - What C++ STL headers are low token count to include?
+    - Always?
+    - Or depending on STL?
 - What C++ STL headers are high token count to include?
+    - Always?
+    - Or depending on STL?
 
+# libstdc++ 5, 6, 7 (2015-2017)
 <center>
 <img src="https://raw.githubusercontent.com/ned14/stl-header-heft/master/graphs/libstdc++-7.png"/>
+<img src="https://raw.githubusercontent.com/ned14/stl-header-heft/master/graphs/libstdc++-history.png"/>
 </center>
 
-## Low token count C++ 17 libstdc++ headers
+[Detailed observation notes](Readme.libstdc++.md)
 
-Each of these is at most less than half the token parse time of any other
-libstdc++ header:
+# VS2008, VS2012, VS2013, VS2017 (2008-2018)
+<center>
+<img src="https://raw.githubusercontent.com/ned14/stl-header-heft/master/graphs/msvs-2017.png"/>
+<img src="https://raw.githubusercontent.com/ned14/stl-header-heft/master/graphs/msvs-history.png"/>
+</center>
 
-- any
-- atomic
-- cassert
-- cctype
-- cerrno
-- cfenv
-- cfloat
-- chrono
-- cinttypes
-- climits
-- clocale
-- cmath
-- csetjmp
-- csignal
-- cstdarg
-- cstddef
-- cstdint
-- cstdio
-- cstdlib
-- cstring
-- ctime
-- cwchar
-- cwctype
-- exception
-- initializer_list
-- iosfwd
-- limits
-- new
-- numeric
-- ratio
-- type_traits
-- typeindex
-- typeinfo
-- utility
-
-## Lowest token count C++ 17 libstdc++ containers
-
-Each of these is at most less than half the token parse time of any other
-libstdc++ container:
-
-- deque
-- forward_list
-- list
-- set
-- stack
-- vector
-
-## Highest token count C++ 17 libstdc++ headers
-
-You may wish to avoid using these headers if compile times are very important
-to you:
-
-- regex
-- random
-- thread, future, shared_mutex, condition_variable, mutex (any of the threading support)
-- memory, memory_resource
-- iomanip
-- functional
-
-Note that the iostream headers are actually fine, they all lie around the median.
-
-## Highest token count C++ 17 libstdc++ containers
-
-You may wish to avoid using these containers if compile times are very important
-to you:
-
-- unordered_map and unordered_set
-- map and set
-- array (SURPRISING!)
-- string (SURPRISING!)
-- valarray
-
-## Surprising high token count C++ 17 libstdc++ headers
-
-I found these headers have much higher token count than you'd expect.
-As in, at least double of or considerably more than `<vector>`!
-
-- array
-- complex
-- iterator
-- memory
-- optional
-- string
+[Detailed observation notes](Readme.msvs.md)
