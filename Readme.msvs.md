@@ -74,8 +74,30 @@ All these are SURPRISING!
 I found these headers have much higher token count than you'd expect.
 
 - atomic
+    - Cause: Performs significant preprocessor metaprogramming instead of using
+    a pre-expanded edition.
+    - https://github.com/ned14/stl-header-heft/blob/master/msvs-2017/atomic.csv
 - array
+    - Cause: Drags in a lot of other headers, including `<algorithm>`, `<iterator>`,
+    `<istream>`, `<ostream>`, `<stdexcept>` and so on. I can't see why when
+    libstdc++ doesn't do this.
+    - https://github.com/ned14/stl-header-heft/blob/master/msvs-2017/array.csv
 - complex
+    - Cause: Drags in a lot of other headers, including `<sstream>`, `<string>`,
+    `<istream>`, `<ostream>`, `<stdexcept>` and so on.
+    - https://github.com/ned14/stl-header-heft/blob/master/msvs-2017/complex.csv
 - forward_list
+    - Cause: Includes quite a few internal headers which do limited preprocessor
+    metaprogramming, none of each of which would be a problem alone, but added
+    together it starts looking big.
+    - https://github.com/ned14/stl-header-heft/blob/master/msvs-2017/forward_list.csv
 - string
+    - Cause: Includes `<istream>`, `<ostream>`, `<stdexcept>` and so on.
+    - https://github.com/ned14/stl-header-heft/blob/master/msvs-2017/string.csv
 - vector
+    - Cause: Includes quite a few internal headers which do limited preprocessor
+    metaprogramming, none of each of which would be a problem alone, but added
+    together it starts looking big. libstdc++ implements this as one of the very
+    lightest of headers, so I think this implementation could do with some spring
+    cleaning.
+    - https://github.com/ned14/stl-header-heft/blob/master/msvs-2017/vector.csv
