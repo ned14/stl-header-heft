@@ -1,5 +1,10 @@
 [Explanation of this project](Readme.md)
 
+<center>
+<img src="https://raw.githubusercontent.com/ned14/stl-header-heft/master/graphs/msvs-2017.png"/>
+<img src="https://raw.githubusercontent.com/ned14/stl-header-heft/master/graphs/msvs-history.png"/>
+</center>
+
 ## Low token count C++ 17 VS2017 headers
 
 Each of these is in the bottom quartile of token parse times for all STL headers:

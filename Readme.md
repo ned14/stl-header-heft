@@ -44,3 +44,47 @@ really useful to know:
 </center>
 
 [Detailed observation notes](Readme.msvs.md)
+
+## Low token count C++ 17 headers on both libstdc++ 7 and VS2017
+
+Each of these is in the bottom quartile of token parse times for all STL headers
+in their respective STLs. You are therefore more likely to be safe if you include
+only these:
+
+- cassert
+- cctype
+- cerrno
+- cfenv
+- cfloat
+- cinttypes
+- climits
+- clocale
+- csetjmp
+- csignal
+- cstdarg
+- cstddef
+- cstdint
+- cstdio
+- cstdlib
+- cstring
+- ctime
+- cwchar
+- cwctype
+- exception
+- initializer_list
+- new
+- ratio
+- typeindex
+- typeinfo
+
+Some of the C headers like `<cmath>` can be quite heavy in some STLs!
+
+## Lowest token count C++ 17 libstdc++ containers on both libstdc++ 7 and VS2017
+
+Each of these is less than half the token parse time of the worst STL container header
+in its respective STL:
+
+- deque
+- list
+
+You will probably be surprised to not see `<vector>` in there!
