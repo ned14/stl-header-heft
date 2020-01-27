@@ -29,62 +29,36 @@ really useful to know:
     - Always?
     - Or depending on STL?
 
-# libstdc++ 5, 6, 7 (2015-2017)
+# libstdc++ 7, 8, 9 (2017-2020)
 <center>
-<img src="https://raw.githubusercontent.com/ned14/stl-header-heft/master/graphs/libstdc++-7.png"/>
+<img src="https://raw.githubusercontent.com/ned14/stl-header-heft/master/graphs/libstdc++-9.png"/>
 <img src="https://raw.githubusercontent.com/ned14/stl-header-heft/master/graphs/libstdc++-history.png"/>
 </center>
 
 [Detailed observation notes](Readme.libstdc++.md)
 
-# VS2008, VS2012, VS2013, VS2017 (2008-2018)
+# VS2017, VS2019 (2018-2020)
 <center>
-<img src="https://raw.githubusercontent.com/ned14/stl-header-heft/master/graphs/msvs-2017.png"/>
+<img src="https://raw.githubusercontent.com/ned14/stl-header-heft/master/graphs/msvs-2019.png"/>
 <img src="https://raw.githubusercontent.com/ned14/stl-header-heft/master/graphs/msvs-history.png"/>
 </center>
 
 [Detailed observation notes](Readme.msvs.md)
 
-## Low token count C++ 17 headers on both libstdc++ 7 and VS2017
+## Low token count C++ 17 headers on both libstdc++ 9 and VS2019
 
 Each of these is in the bottom quartile of token parse times for all STL headers
 in their respective STLs. You are therefore more likely to be safe if you include
 only these:
 
-- cassert
-- cctype
-- cerrno
-- cfenv
-- cfloat
-- cinttypes
-- climits
-- clocale
-- csetjmp
-- csignal
-- cstdarg
-- cstddef
-- cstdint
-- cstdio
-- cstdlib
-- cstring
-- ctime
-- cwchar
-- cwctype
-- exception
-- initializer_list
-- new
-- ratio
-- typeindex
-- typeinfo
+TODO
 
 Some of the C headers like `<cmath>` can be quite heavy in some STLs!
 
-## Lowest token count C++ 17 libstdc++ containers on both libstdc++ 7 and VS2017
+## Lowest token count C++ 17 libstdc++ containers on both libstdc++ 9 and VS2019
 
 Each of these is less than half the token parse time of the worst STL container header
 in its respective STL:
 
-- deque
-- list
+TODO
 
-You will probably be surprised to not see `<vector>` in there!
