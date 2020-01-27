@@ -1,11 +1,11 @@
 [Explanation of this project](Readme.md)
 
 <center>
-<img src="https://raw.githubusercontent.com/ned14/stl-header-heft/master/graphs/msvs-2017.png"/>
+<img src="https://raw.githubusercontent.com/ned14/stl-header-heft/master/graphs/msvs-2019.png"/>
 <img src="https://raw.githubusercontent.com/ned14/stl-header-heft/master/graphs/msvs-history.png"/>
 </center>
 
-## Low token count C++ 17 VS2017 headers
+## Low token count C++ 20 VS2019 headers
 
 Each of these is in the bottom quartile of token parse times for all STL headers:
 
@@ -36,7 +36,7 @@ Each of these is in the bottom quartile of token parse times for all STL headers
 - typeindex
 - typeinfo
 
-## Lowest token count C++ 17 VS2017 containers
+## Lowest token count C++ 17 VS2019 containers
 
 Each of these is less than half the token parse time of the worst STL container header:
 
@@ -44,7 +44,7 @@ Each of these is less than half the token parse time of the worst STL container 
 - list
 - map
 
-## Highest token count C++ 17 VS2017 headers
+## Highest token count C++ 17 VS2019 headers
 
 You may wish to avoid using these headers if compile times are very important
 to you:
@@ -62,7 +62,7 @@ to you:
 
 Note that the iostream headers apart from `fstream` are fine, they all lie around the median.
 
-## Highest token count C++ 17 VS2017 containers
+## Highest token count C++ 17 VS2019 containers
 
 You may wish to avoid using these containers if compile times are very important
 to you:
@@ -74,7 +74,7 @@ to you:
 
 All these are SURPRISING!
 
-## Surprising high token count C++ 17 VS2017 headers
+## Surprising high token count C++ 17 VS2019 headers
 
 I found these headers have much higher token count than you'd expect.
 

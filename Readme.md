@@ -1,6 +1,6 @@
 # STL Header Heft
 
-(C) 2018 Niall Douglas http://www.nedproductions.biz/
+(C) 2018 - 2020 Niall Douglas http://www.nedproductions.biz/
 
 Herein lie some STL header token parsing benchmarks as according to my pure
 Python C99 preprocessor [pcpp](https://github.com/ned14/pcpp). Although

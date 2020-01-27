@@ -4,7 +4,7 @@ from __future__ import absolute_import, print_function
 import sys, os, subprocess, shutil, glob, multiprocessing, traceback
 if __name__ == '__main__' and __package__ is None:
     sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), 'pcpp'))
-from pcpp.cmd import CmdPreprocessor
+from pcpp.pcmd import CmdPreprocessor
 
 # multiprocessing capable
 def process_header(stl, header_path, flags, header):
@@ -24,89 +24,98 @@ def process_header(stl, header_path, flags, header):
         return (-1, header)
 
 stl_headers = [
-    "cstdlib",
-    "csignal",
-    "csetjmp",
-    "cstdarg",
-    "typeinfo",
-    "typeindex",
-    "type_traits",
-    "bitset",
-    "functional",
-    "utility",
-    "ctime",
-    "chrono",
-    "cstddef",
-    "initializer_list",
-    "tuple",
+    "algorithm",
     "any",
-    "optional",
-    "variant",
-    "new",
-    "memory",
-    "scoped_allocator",
-    "memory_resource",
-    "climits",
-    "cfloat",
-    "cstdint",
-    "cinttypes",
-    "limits",
-    "exception",
-    "stdexcept",
+    "array",
+    "atomic",
+    "bitset",
     "cassert",
-    "system_error",
-    "cerrno",
+    "ccomplex",
     "cctype",
-    "cwctype",
+    "cerrno",
+    "cfenv",
+    "cfloat",
+    "charconv",
+    "chrono",
+    "cinttypes",
+    "ciso646",
+    "climits",
+    "clocale",
+    "cmath",
+    "codecvt",
+    "compare",
+    "complex",
+    "concepts",
+    "condition_variable",
+    "csetjmp",
+    "csignal",
+    "cstdalign",
+    "cstdarg",
+    "cstdbool",
+    "cstddef",
+    "cstdint",
+    "cstdio",
+    "cstdlib",
     "cstring",
-    "cwchar",
+    "ctgmath",
+    "ctime",
     "cuchar",
+    "cwchar",
+    "cwctype",
+    "deque",
+    "exception",
+    "execution",
+    "filesystem",
+    "forward_list",
+    "fstream",
+    "functional",
+    "future",
+    "initializer_list",
+    "iomanip",
+    "ios",
+    "iosfwd",
+    "iostream",
+    "istream",
+    "iterator",
+    "limits",
+    "list",
+    "locale",
+    "map",
+    "memory",
+    "memory_resource",
+    "mutex",
+    "new",
+    "numeric",
+    "optional",
+    "ostream",
+    "queue",
+    "random",
+    "ranges",
+    "ratio",
+    "regex",
+    "scoped_allocator",
+    "set",
+    "shared_mutex",
+    "sstream",
+    "stack",
+    "stdexcept",
+    "streambuf",
     "string",
     "string_view",
-    "charconv",
-    "array",
-    "vector",
-    "deque",
-    "list",
-    "forward_list",
-    "set",
-    "map",
-    "unordered_set",
-    "unordered_map",
-    "stack",
-    "queue",
-    "algorithm",
-    "execution",
-    "iterator",
-    "cmath",
-    "complex",
-    "valarray",
-    "random",
-    "numeric",
-    "ratio",
-    "cfenv",
-    "iosfwd",
-    "ios",
-    "istream",
-    "ostream",
-    "iostream",
-    "fstream",
-    "sstream",
     "strstream",
-    "iomanip",
-    "streambuf",
-    "cstdio",
-    "locale",
-    "clocale",
-    "codecvt",
-    "regex",
-    "atomic",
+    "system_error",
     "thread",
-    "mutex",
-    "shared_mutex",
-    "future",
-    "condition_variable",
-    "filesystem"
+    "tuple",
+    "type_traits",
+    "typeindex",
+    "typeinfo",
+    "unordered_map",
+    "unordered_set",
+    "utility",
+    "valarray",
+    "variant",
+    "vector",
+    "version"
 ]
 stl_headers.sort()
 
@@ -130,7 +139,11 @@ if __name__ == '__main__':
             '-I', '/usr/local/include'
         ]
         header_path = '/usr/include/c++/%d/%%s' % ver
-        if ver == 7:
+        if ver == 9:
+            pass
+        elif ver == 8:
+            pass
+        elif ver == 7:
             stl_headers.remove("charconv")
             stl_headers.remove("execution")
             stl_headers.remove("strstream")
@@ -164,7 +177,8 @@ if __name__ == '__main__':
         ver = int(stl[5:])
         if ver >= 15:
             crtpath = glob.glob('C:/Program Files (x86)/Windows Kits/10/Include/*')[0]
-            vcpath = glob.glob('C:/Program Files (x86)/Microsoft Visual Studio/%d/Professional/VC/Tools/MSVC/*' % ver)[0]
+            #vcpath = glob.glob('C:/Program Files (x86)/Microsoft Visual Studio/%d/Enterprise/VC/Tools/MSVC/*' % ver)[0]
+            vcpath = glob.glob('C:/Program Files (x86)/Microsoft Visual Studio/%d/Community/VC/Tools/MSVC/*' % ver)[0]
             flags = [
                 '-D', '_WIN32',
                 '-D', '_M_X64=1',
@@ -172,11 +186,14 @@ if __name__ == '__main__':
                 '-I', vcpath + '/include',
             ]
             header_path = vcpath + '/include/%s'
-            if ver == 2017:
+            if ver <= 2019:
+                pass
+            if ver <= 2017:
                 stl_headers.remove("charconv")
-            else:
-                print("Unsupported msvs version %d" % ver, file = sys.stderr)
-                sys.exit(1)
+                stl_headers.remove("compare")
+                stl_headers.remove("concepts")
+                stl_headers.remove("ranges")
+                stl_headers.remove("version")
         else:
             flags = [
                 '-D', '_WIN32',
@@ -184,68 +201,48 @@ if __name__ == '__main__':
                 '-I', 'C:/Program Files (x86)/Microsoft Visual Studio %d.0/VC/include' % ver,
             ]
             header_path = 'C:/Program Files (x86)/Microsoft Visual Studio %d.0/VC/include/%%s' % ver
-            if ver == 12:
+            if ver <= 12:
                 stl_headers.remove("any")
                 stl_headers.remove("charconv")
+                stl_headers.remove("compare")
+                stl_headers.remove("concepts")
                 stl_headers.remove("cuchar")
                 stl_headers.remove("execution")
                 stl_headers.remove("memory_resource")
                 stl_headers.remove("optional")
+                stl_headers.remove("ranges")
                 stl_headers.remove("shared_mutex")
                 stl_headers.remove("string_view")
                 stl_headers.remove("variant")
-            elif ver == 11:
-                print("WARNING: VS2012 uses MSVC-specific preprocessor metaprogramming which pcpp will fail to parse")
-                stl_headers.remove("any")
+                stl_headers.remove("version")
+            if ver <= 11:
+                if ver == 11:
+                    print("WARNING: VS2012 uses MSVC-specific preprocessor metaprogramming which pcpp will fail to parse")
                 stl_headers.remove("cfenv")
-                stl_headers.remove("charconv")
                 stl_headers.remove("cinttypes")
-                stl_headers.remove("cuchar")
-                stl_headers.remove("execution")
                 stl_headers.remove("filesystem")
                 stl_headers.remove("initializer_list")
-                stl_headers.remove("memory_resource")
-                stl_headers.remove("optional")
-                stl_headers.remove("shared_mutex")
-                stl_headers.remove("string_view")
                 stl_headers.remove("strstream")
-                stl_headers.remove("variant")
-            elif ver == 9:
+            if ver <= 9:
                 # This is a C++ 03 compiler with TR1
-                stl_headers.remove("any")
                 stl_headers.remove("atomic")
-                stl_headers.remove("cfenv")
-                stl_headers.remove("charconv")
                 stl_headers.remove("chrono")
-                stl_headers.remove("cinttypes")
                 stl_headers.remove("codecvt")
                 stl_headers.remove("condition_variable")
-                stl_headers.remove("cuchar")
-                stl_headers.remove("execution")
-                stl_headers.remove("filesystem")
                 stl_headers.remove("forward_list")
                 stl_headers.remove("future")
-                stl_headers.remove("initializer_list")
-                stl_headers.remove("memory_resource")
                 stl_headers.remove("mutex")
-                stl_headers.remove("optional")
                 stl_headers.remove("random")
                 stl_headers.remove("ratio")
                 stl_headers.remove("regex")
                 stl_headers.remove("scoped_allocator")
-                stl_headers.remove("shared_mutex")
-                stl_headers.remove("string_view")
                 stl_headers.remove("system_error")
                 stl_headers.remove("thread")
                 stl_headers.remove("tuple")
                 stl_headers.remove("typeindex")
-                stl_headers.remove("variant")
 
                 # Missing conformance
                 stl_headers.remove("cstdint")
-            else:
-                print("Unsupported msvs version %d" % ver, file = sys.stderr)
-                sys.exit(1)
     else:
         print("STL", stl, "is currently unsupported", file = sys.stderr)
         sys.exit(1)
