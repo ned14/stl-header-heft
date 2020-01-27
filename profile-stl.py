@@ -14,7 +14,8 @@ def process_header(stl, header_path, flags, header):
             '-o', os.path.join(stl, header + '.all.hpp'),
             header_path % header,
             '--filetimes=' + os.path.join(stl, header) + '.csv',
-            '-D', '__cplusplus=20180000'
+            '-D', '__cplusplus=20300000',
+            '-D', '__cpp_lib_concepts=1'
         ] + flags
         p = CmdPreprocessor(cmdline)
         print("%s took %f secs" % (header, p.include_times[0].elapsed))
@@ -177,11 +178,13 @@ if __name__ == '__main__':
         ver = int(stl[5:])
         if ver >= 15:
             crtpath = glob.glob('C:/Program Files (x86)/Windows Kits/10/Include/*')[0]
-            #vcpath = glob.glob('C:/Program Files (x86)/Microsoft Visual Studio/%d/Enterprise/VC/Tools/MSVC/*' % ver)[0]
-            vcpath = glob.glob('C:/Program Files (x86)/Microsoft Visual Studio/%d/Community/VC/Tools/MSVC/*' % ver)[0]
+            vcpath = glob.glob('C:/Program Files (x86)/Microsoft Visual Studio/%d/Enterprise/VC/Tools/MSVC/*' % ver)[0]
+            #vcpath = glob.glob('C:/Program Files (x86)/Microsoft Visual Studio/%d/Community/VC/Tools/MSVC/*' % ver)[0]
             flags = [
                 '-D', '_WIN32',
                 '-D', '_M_X64=1',
+                '-D', '_HAS_CXX17=1',
+                '-D', '_HAS_CXX20=1',
                 '-I', crtpath + '/ucrt',
                 '-I', vcpath + '/include',
             ]
