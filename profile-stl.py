@@ -178,8 +178,8 @@ if __name__ == '__main__':
         ver = int(stl[5:])
         if ver >= 15:
             crtpath = glob.glob('C:/Program Files (x86)/Windows Kits/10/Include/*')[0]
-            vcpath = glob.glob('C:/Program Files (x86)/Microsoft Visual Studio/%d/Enterprise/VC/Tools/MSVC/*' % ver)[0]
-            #vcpath = glob.glob('C:/Program Files (x86)/Microsoft Visual Studio/%d/Community/VC/Tools/MSVC/*' % ver)[0]
+            #vcpath = glob.glob('C:/Program Files (x86)/Microsoft Visual Studio/%d/Enterprise/VC/Tools/MSVC/*' % ver)[0]
+            vcpath = glob.glob('C:/Program Files (x86)/Microsoft Visual Studio/%d/Community/VC/Tools/MSVC/*' % ver)[0]
             flags = [
                 '-D', '_WIN32',
                 '-D', '_M_X64=1',

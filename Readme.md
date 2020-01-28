@@ -45,20 +45,88 @@ really useful to know:
 
 [Detailed observation notes](Readme.msvs.md)
 
-## Low token count C++ 17 headers on both libstdc++ 9 and VS2019
+## Low token count C++ 20 headers on both libstdc++ 9 and VS2019
 
 Each of these is in the bottom quartile of token parse times for all STL headers
 in their respective STLs. You are therefore more likely to be safe if you include
 only these:
 
-TODO
+- cassert
+- cctype
+- cerrno
+- cfenv
+- cfloat
+- cinttypes
+- ciso646
+- climits
+- clocale
+- compare
+- csetjmp
+- csignal
+- cstdalign
+- cstdarg
+- cstdbool
+- cstddef
+- cstdint
+- cstring
+- ctime
+- cuchar
+- cwctype
+- initializer_list
+- version
 
-Some of the C headers like `<cmath>` can be quite heavy in some STLs!
+Some of the C headers like `<cmath>`, `<cstdio>` and `<cstdlib>` can be quite heavy in some STLs!
 
-## Lowest token count C++ 17 libstdc++ containers on both libstdc++ 9 and VS2019
+## Highest token count C++ 20 headers on either libstdc++ 9 and VS2019
 
-Each of these is less than half the token parse time of the worst STL container header
-in its respective STL:
+You may wish to avoid using these headers, especially in global interface
+files, if compile times across GCC and MSVC are very important to you:
 
-TODO
-
+- algorithm
+- array
+- bitset
+- ccomplex
+- codecvt
+- complex
+- condition_variable
+- ctgmath
+- deque
+- execution
+- filesystem
+- forward_list
+- fstream
+- functional
+- future
+- iomanip
+- ios
+- iostream
+- istream
+- iterator
+- list
+- locale
+- map
+- memory
+- memory_resource
+- mutex
+- ostream
+- queue
+- random
+- ranges
+- regex
+- scoped_allocator
+- set
+- shared_mutex
+- sstream
+- stack
+- stdexcept
+- streambuf
+- string
+- string_view
+- strstream
+- system_error
+- thread
+- unordered_map
+- unordered_set
+- valarray
+- variant
+- vector

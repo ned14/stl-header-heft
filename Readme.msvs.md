@@ -9,42 +9,35 @@
 
 Each of these is in the bottom quartile of token parse times for all STL headers:
 
-- ranges
-- version
-- climits
-- concepts
-- compare
-- cfloat
-- cstddef
-- initializer_list
 - cassert
+- cctype
 - cerrno
+- cfenv
+- cfloat
+- cinttypes
+- ciso646
+- climits
+- clocale
+- compare
+- csetjmp
 - csignal
+- cstdalign
 - cstdarg
 - cstdbool
-- ciso646
-- csetjmp
-- cstdalign
+- cstddef
 - cstdint
-- cuchar
-- clocale
-- cfenv
-- cinttypes
-- cwctype
-- cctype
+- cstring
 - ctime
+- cuchar
+- cwctype
+- initializer_list
+- version
 
+Note that `cstdlib` and `cstdio` are not in this list. They have become rather fatter, relatively speaking, in VS2019.
 
 ## Lowest token count C++ 20 VS2019 containers
 
-Each of these is less than two thirds the token parse time of the worst STL container header:
-
-- deque
-- list
-- map
-- stack
-- set
-- vector
+All apart from `<array>` now have a low token count in VS2019.
 
 ## Highest token count C++ 20 VS2019 headers
 
@@ -52,18 +45,27 @@ You may wish to avoid using these headers if compile times are very important
 to you:
 
 - array
-- bitset
 - ccomplex
 - codecvt
 - complex
 - ctgmath
 - execution
 - filesystem
+- fstream
+- functional
 - future
 - iomanip
+- ios
+- iostream
+- istream
+- iterator
+- locale
+- ostream
+- random
+- ranges
 - regex
-- thread
-- vector
+- sstream
+- strstream
 
 ## Highest token count C++ 20 VS2019 containers
 
@@ -72,15 +74,15 @@ to you:
 
 - array
 
-All these are SURPRISING!
+This is expected to be fixed in VS2020.
 
 ## Surprising high token count C++ 20 VS2019 headers
 
 I found these headers have much higher token count than you'd expect.
 
 - atomic
-    - Cause: Performs significant preprocessor metaprogramming instead of using
-    a pre-expanded edition.
+    - Cause: Drags in a lot of other headers. I can't see why when
+    libstdc++ doesn't do this.
     - https://github.com/ned14/stl-header-heft/blob/master/msvs-2019/atomic.csv
 - array
     - Cause: Drags in a lot of other headers, including `<algorithm>`, `<iterator>`,
@@ -89,5 +91,5 @@ I found these headers have much higher token count than you'd expect.
     - https://github.com/ned14/stl-header-heft/blob/master/msvs-2019/array.csv
 - complex
     - Cause: Drags in a lot of other headers, including `<sstream>`, `<string>`,
-    `<istream>`, `<ostream>`, `<stdexcept>` and so on.
+    `<istream>`, `<ostream>`, `<stdexcept>` and so on. libstdc++ is just as bad.
     - https://github.com/ned14/stl-header-heft/blob/master/msvs-2019/complex.csv
