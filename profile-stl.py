@@ -48,6 +48,7 @@ stl_headers = [
     "complex",
     "concepts",
     "condition_variable",
+    "coroutine",
     "csetjmp",
     "csignal",
     "cstdalign",
@@ -87,8 +88,10 @@ stl_headers = [
     "mutex",
     "new",
     "numeric",
+    "numbers",
     "optional",
     "ostream",
+    "profile",
     "queue",
     "random",
     "ranges",
@@ -97,9 +100,11 @@ stl_headers = [
     "scoped_allocator",
     "set",
     "shared_mutex",
+    "span",
     "sstream",
     "stack",
     "stdexcept",
+    "stop_token",
     "streambuf",
     "string",
     "string_view",
@@ -140,37 +145,27 @@ if __name__ == '__main__':
             '-I', '/usr/local/include'
         ]
         header_path = '/usr/include/c++/%d/%%s' % ver
-        if ver == 9:
-            pass
-        elif ver == 8:
-            pass
-        elif ver == 7:
+        if ver < 10:
+            stl_headers.remove("coroutine")
+            stl_headers.remove("numbers")
+            stl_headers.remove("profile")
+            stl_headers.remove("span")
+            stl_headers.remove("stop_token")
+        if ver < 8:
             stl_headers.remove("charconv")
             stl_headers.remove("execution")
             stl_headers.remove("strstream")
             stl_headers = [ 'experimental/filesystem' if x == 'filesystem' else x for x in stl_headers ]
             stl_headers = [ 'experimental/memory_resource' if x == 'memory_resource' else x for x in stl_headers ]
-        elif ver == 6:
-            stl_headers.remove("charconv")
-            stl_headers.remove("execution")
-            stl_headers.remove("strstream")
+        if ver < 7:
             stl_headers.remove("variant")
             stl_headers = [ 'experimental/any' if x == 'any' else x for x in stl_headers ]
-            stl_headers = [ 'experimental/filesystem' if x == 'filesystem' else x for x in stl_headers ]
-            stl_headers = [ 'experimental/memory_resource' if x == 'memory_resource' else x for x in stl_headers ]
             stl_headers = [ 'experimental/optional' if x == 'optional' else x for x in stl_headers ]
             stl_headers = [ 'experimental/string_view' if x == 'string_view' else x for x in stl_headers ]
-        elif ver == 5:
-            stl_headers.remove("charconv")
+        if ver < 6:
             stl_headers.remove("cuchar")
-            stl_headers.remove("execution")
             stl_headers.remove("filesystem")
             stl_headers.remove("memory_resource")
-            stl_headers.remove("strstream")
-            stl_headers.remove("variant")
-            stl_headers = [ 'experimental/any' if x == 'any' else x for x in stl_headers ]
-            stl_headers = [ 'experimental/optional' if x == 'optional' else x for x in stl_headers ]
-            stl_headers = [ 'experimental/string_view' if x == 'string_view' else x for x in stl_headers ]
         else:
             print("Unsupported libstdc++ version %d" % ver, file = sys.stderr)
             sys.exit(1)
@@ -190,7 +185,9 @@ if __name__ == '__main__':
             ]
             header_path = vcpath + '/include/%s'
             if ver <= 2019:
-                pass
+                stl_headers.remove("coroutine")
+                stl_headers.remove("profile")
+                stl_headers.remove("stop_token")
             if ver <= 2017:
                 stl_headers.remove("charconv")
                 stl_headers.remove("compare")
@@ -209,12 +206,15 @@ if __name__ == '__main__':
                 stl_headers.remove("charconv")
                 stl_headers.remove("compare")
                 stl_headers.remove("concepts")
+                stl_headers.remove("coroutine")
                 stl_headers.remove("cuchar")
                 stl_headers.remove("execution")
                 stl_headers.remove("memory_resource")
                 stl_headers.remove("optional")
+                stl_headers.remove("profile")
                 stl_headers.remove("ranges")
                 stl_headers.remove("shared_mutex")
+                stl_headers.remove("stop_token")
                 stl_headers.remove("string_view")
                 stl_headers.remove("variant")
                 stl_headers.remove("version")
